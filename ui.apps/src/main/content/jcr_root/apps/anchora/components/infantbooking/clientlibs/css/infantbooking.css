@@ -1,0 +1,189 @@
+.infantbooking {
+    background: #f3f2f0;
+    color: #2a2a2a;
+    padding: 72px 7vw 88px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .infantbooking {
+        background: #f3f2f0;
+        color: #2a2a2a;
+    }
+}
+
+.infantbooking__layout {
+    display: grid;
+    grid-template-columns: minmax(280px, 480px) minmax(0, 1fr);
+    column-gap: 64px;
+    row-gap: 32px;
+    align-items: start;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.infantbooking__heading {
+    margin: 0;
+    max-width: 460px;
+    color: #2b2b2b;
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+}
+
+.infantbooking__description {
+    margin: 48px 0 0;
+    max-width: 380px;
+    color: #3c3c3c;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+.infantbooking__toggle {
+    display: block;
+    margin: 0 0 14px auto;
+    padding: 2px 0;
+    border: 0;
+    background: transparent;
+    color: #e10600;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+}
+
+.infantbooking__toggle:focus {
+    outline: 2px solid #1a1a1a;
+    outline-offset: 3px;
+}
+
+.infantbooking__item {
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.infantbooking__item:first-child {
+    border-top: 1px solid #d8d8d8;
+}
+
+.infantbooking__header {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.infantbooking__button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    margin: 0;
+    padding: 18px 2px;
+    border: 0;
+    background: transparent;
+    color: #222;
+    font: inherit;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+}
+
+.infantbooking__button:focus {
+    outline: 2px solid #1a1a1a;
+    outline-offset: -2px;
+}
+
+.infantbooking__title {
+    flex: 1 1 auto;
+}
+
+.infantbooking__icon {
+    flex: 0 0 auto;
+    width: 9px;
+    height: 9px;
+    margin-right: 6px;
+    border-right: 1.5px solid #2a2a2a;
+    border-bottom: 1.5px solid #2a2a2a;
+    transform: rotate(45deg) translateY(-2px);
+}
+
+.infantbooking__button--expanded .infantbooking__icon {
+    visibility: hidden;
+}
+
+.infantbooking__panel {
+    color: #333;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.infantbooking__panel--hidden {
+    display: none;
+}
+
+.infantbooking__panel--expanded {
+    display: block;
+    padding: 0 28px 18px 2px;
+}
+
+.infantbooking__answer ul {
+    margin: 4px 0 0;
+    padding-left: 1.25em;
+}
+
+.infantbooking__answer li {
+    margin: 0 0 14px;
+}
+
+.infantbooking__answer p {
+    margin: 0 0 10px;
+}
+
+.infantbooking__description a,
+.infantbooking__answer a {
+    color: #e10600;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.infantbooking__link-icon {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 6px;
+    vertical-align: -2px;
+    object-fit: contain;
+}
+
+.aem-AuthorLayer-Edit .infantbooking__panel--hidden,
+.cq-wcm-edit .infantbooking__panel--hidden {
+    display: block;
+    padding: 0 28px 18px 2px;
+}
+
+@media (max-width: 768px) {
+    .infantbooking {
+        padding: 40px 24px 56px;
+    }
+
+    .infantbooking__layout {
+        grid-template-columns: 1fr;
+    }
+
+    .infantbooking__heading,
+    .infantbooking__description {
+        max-width: none;
+    }
+
+    .infantbooking__heading {
+        font-size: 32px;
+    }
+
+    .infantbooking__description {
+        margin-top: 16px;
+    }
+}
