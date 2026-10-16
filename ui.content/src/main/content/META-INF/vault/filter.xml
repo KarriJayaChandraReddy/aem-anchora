@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/conf/anchora" mode="merge"/>
+    <filter root="/content/anchora" mode="merge"/>
+    <filter root="/content/dam/anchora" mode="merge">
+        <exclude pattern="/content/dam/anchora(/.*)?"/>
+        <include pattern="/content/dam/anchora/jcr:content(/.*)?"/>
+    </filter>
+    <filter root="/content/dam/anchora/asset.jpg" mode="merge"/>
+    <filter root="/content/experience-fragments/anchora" mode="merge"/>
+</workspaceFilter>
