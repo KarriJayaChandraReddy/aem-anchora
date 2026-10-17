@@ -1,0 +1,12 @@
+<!--/*
+    Title. When the title itself is the link, a new tab also gets rel="noopener noreferrer".
+*/-->
+<sly data-sly-template.title="${@ teaser}">
+    <h2 class="cmp-teaser__title" data-sly-test.title="${teaser.title}" data-sly-element="${teaser.titleType}">
+        <a class="cmp-teaser__title-link"
+           data-sly-attribute="${teaser.link.htmlAttributes}"
+           data-sly-attribute.rel="${teaser.link.htmlAttributes.target == '_blank' ? 'noopener noreferrer' : false}"
+           data-sly-unwrap="${!teaser.link.valid || teaser.actions.empty}"
+           data-cmp-clickable="${teaser.data ? true : false}">${title}</a>
+    </h2>
+</sly>

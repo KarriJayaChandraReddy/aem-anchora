@@ -305,6 +305,47 @@
                     </cq:authoring>
                 </policy_1575040440977>
             </container>
+            <featureteaser jcr:primaryType="nt:unstructured">
+                <policy
+                    jcr:description="Heading level is H2. Authors do not choose it on each teaser."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Feature Teaser"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    allowedHeadingElements="[h2]"
+                    titleType="h2">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                    <cq:styleGroups jcr:primaryType="nt:unstructured">
+                        <item0
+                            cq:styleGroupLabel="Image position"
+                            cq:styleGroupMultiple="{Boolean}false"
+                            jcr:primaryType="nt:unstructured">
+                            <cq:styles jcr:primaryType="nt:unstructured">
+                                <item0
+                                    cq:styleClasses="cmp-teaser--image-left"
+                                    cq:styleDefault="{Boolean}true"
+                                    cq:styleId="anchora-feature-teaser-image-left"
+                                    cq:styleLabel="Image left"
+                                    jcr:primaryType="nt:unstructured"/>
+                                <item1
+                                    cq:styleClasses="cmp-teaser--image-right"
+                                    cq:styleId="anchora-feature-teaser-image-right"
+                                    cq:styleLabel="Image right"
+                                    jcr:primaryType="nt:unstructured"/>
+                                <item2
+                                    cq:styleClasses="cmp-teaser--image-top"
+                                    cq:styleId="anchora-feature-teaser-image-top"
+                                    cq:styleLabel="Image top"
+                                    jcr:primaryType="nt:unstructured"/>
+                                <item3
+                                    cq:styleClasses="cmp-teaser--image-bottom"
+                                    cq:styleId="anchora-feature-teaser-image-bottom"
+                                    cq:styleLabel="Image bottom"
+                                    jcr:primaryType="nt:unstructured"/>
+                            </cq:styles>
+                        </item0>
+                    </cq:styleGroups>
+                </policy>
+            </featureteaser>
             <teaser jcr:primaryType="nt:unstructured">
                 <policy_1575031387650
                     jcr:description="Sets the title size to H3."

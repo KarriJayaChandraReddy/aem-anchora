@@ -1,0 +1,12 @@
+<!--/*
+    Call-to-action link. A new tab also gets rel="noopener noreferrer".
+*/-->
+<sly data-sly-template.action="${@ action}">
+    <a class="cmp-teaser__action-link"
+       data-sly-attribute="${action.link.htmlAttributes}"
+       data-sly-attribute.rel="${action.link.htmlAttributes.target == '_blank' ? 'noopener noreferrer' : false}"
+       data-sly-unwrap="${!action.link.valid}"
+       id="${action.id}"
+       data-cmp-data-layer="${action.data.json}"
+       data-cmp-clickable="${action.data ? true : false}">${action.title}</a>
+</sly>

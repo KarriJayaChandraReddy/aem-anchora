@@ -1,0 +1,32 @@
+<!--/*
+    Feature Teaser. Rendering comes from the Core Teaser.
+    With no authored title, text, image, or link, the editor shows a placeholder
+    and the published page renders nothing, the same way the hero banner does.
+*/-->
+<sly data-sly-test.hasContent="${properties['jcr:title'] || properties.pretitle || properties['jcr:description'] || properties.fileReference || properties.linkURL || resource.image.fileReference || resource.actions}"></sly>
+<div class="cq-placeholder" data-sly-test="${!hasContent && wcmmode.edit}" data-emptytext="Feature Teaser"></div>
+<sly data-sly-test="${hasContent}"
+     data-sly-use.teaser="com.adobe.cq.wcm.core.components.models.Teaser"
+     data-sly-use.imageTemplate="image.html"
+     data-sly-use.pretitleTemplate="pretitle.html"
+     data-sly-use.titleTemplate="title.html"
+     data-sly-use.descriptionTemplate="description.html"
+     data-sly-use.actionsTemplate="actions.html">
+    <div id="${teaser.id}"
+         class="cmp-teaser${!wcmmode.disabled && teaser.imageResource ? ' cq-dd-image' : ''}"
+         data-cmp-data-layer="${teaser.data.json}">
+        <a class="cmp-teaser__link"
+           data-sly-attribute="${teaser.link.htmlAttributes}"
+           data-sly-attribute.rel="${teaser.link.htmlAttributes.target == '_blank' ? 'noopener noreferrer' : false}"
+           data-sly-unwrap="${!teaser.link.valid || !teaser.actions.empty || !(teaser.pretitle || teaser.title || teaser.description)}"
+           data-cmp-clickable="${teaser.data ? true : false}">
+            <div class="cmp-teaser__content">
+                <sly data-sly-call="${pretitleTemplate.pretitle @ teaser=teaser}"></sly>
+                <sly data-sly-call="${titleTemplate.title @ teaser=teaser}"></sly>
+                <sly data-sly-call="${descriptionTemplate.description @ teaser=teaser}"></sly>
+                <sly data-sly-call="${actionsTemplate.actions @ teaser=teaser}"></sly>
+            </div>
+            <sly data-sly-call="${imageTemplate.image @ teaser=teaser}"></sly>
+        </a>
+    </div>
+</sly>
