@@ -146,17 +146,25 @@
 .infantbooking__description a,
 .infantbooking__answer a {
     color: #e10600;
-    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.infantbooking__description a.infantbooking__arrow,
+.infantbooking__answer a.infantbooking__arrow {
+    display: inline-block;
+    margin-top: 8px;
+    color: #e10600;
+    font-weight: 700;
     text-decoration: none;
 }
 
-.infantbooking__link-icon {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    margin-left: 6px;
-    vertical-align: -2px;
-    object-fit: contain;
+.infantbooking__description a.infantbooking__arrow::after,
+.infantbooking__answer a.infantbooking__arrow::after {
+    content: "\2192";
+    margin-left: 0.35em;
+    font-weight: 600;
+    text-decoration: none;
 }
 
 .aem-AuthorLayer-Edit .infantbooking__panel--hidden,

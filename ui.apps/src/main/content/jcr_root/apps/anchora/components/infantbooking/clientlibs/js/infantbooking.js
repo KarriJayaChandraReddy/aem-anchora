@@ -151,25 +151,27 @@
                 });
             }
             updateToggle(root, accordion);
-            addLinkIcons(root);
+            markSeparateLineLinks(root);
         }
 
-        function addLinkIcons(root) {
-            var src = root.getAttribute("data-link-icon");
-            if (!src) {
-                return;
+        function plainText(value) {
+            return (value || "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
+        }
+
+        function isSeparateLineLink(link) {
+            var block = link.closest("p, li");
+            if (!block || block === link) {
+                return false;
             }
+            return plainText(block.textContent) === plainText(link.textContent);
+        }
+
+        function markSeparateLineLinks(root) {
             var links = root.querySelectorAll(".infantbooking__description a, .infantbooking__answer a");
             Array.prototype.forEach.call(links, function (link) {
-                if (link.querySelector(".infantbooking__link-icon")) {
-                    return;
+                if (isSeparateLineLink(link)) {
+                    link.classList.add("infantbooking__arrow");
                 }
-                var icon = document.createElement("img");
-                icon.className = "infantbooking__link-icon";
-                icon.src = src;
-                icon.alt = "";
-                icon.setAttribute("aria-hidden", "true");
-                link.appendChild(icon);
             });
         }
 
