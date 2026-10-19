@@ -67,3 +67,14 @@ Note: there are significant architectural differences between AEM as a Cloud Ser
 - [Sling Mocks](https://sling.apache.org/documentation/development/sling-mock.html)
 - [Validating and Debugging using Dispatcher Tools](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/implementing/content-delivery/validation-debug)
 
+## Rules for this project
+
+- Hero Banner and Infant Accordion are new components. Feature Teaser extends Core Teaser. Do not rebuild the teaser.
+- A Sling Model sits behind an interface. HTL only prints the result.
+- The hero picture is the normal Image component. Image widths stay on the image policy.
+- The hero title is the only H1. The teaser title is H2. Accordion item titles are H3.
+- CSS and JavaScript go through `ui.frontend` and the `anchora.site` client library. No inline style or script in HTL.
+- Unit tests are JUnit 5 with AEM Mocks. Component content for a test is JSON under `core/src/test/resources`, loaded by `ModelTestJsonSupport`. Run `mvn -pl core test`. A failed test stops `mvn clean install`.
+- Install with `mvn clean install -PautoInstallPackage`.
+- Do not put the flying-with-infants page into Git unless it is agreed for `ui.content`.
+
