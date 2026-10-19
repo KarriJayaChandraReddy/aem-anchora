@@ -15,8 +15,15 @@
  */
 package com.anchora.core.models;
 
-import java.util.HashMap;
-import java.util.Map;
+import static com.anchora.core.testcontext.ModelTestJsonSupport.adaptResource;
+import static com.anchora.core.testcontext.ModelTestJsonSupport.createTree;
+import static com.anchora.core.testcontext.ModelTestJsonSupport.loadJson;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Iterator;
 
 import org.apache.sling.api.resource.Resource;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,44 +32,33 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.anchora.core.models.impl.InfantAccordionImpl;
 import com.anchora.core.testcontext.AppAemContext;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import io.wcm.testing.mock.aem.junit5.AemContext;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 @ExtendWith(AemContextExtension.class)
 class InfantAccordionImplTest {
+
+    private static final String ROOT = "/content/anchora/jcr:content/root";
 
     private final AemContext context = AppAemContext.newAemContext();
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
         context.addModelsForClasses(InfantAccordionImpl.class);
-        context.create().resource("/apps/anchora/components/infantaccordion");
-        context.create().page("/content/anchora");
-        Resource component = context.create().resource("/content/anchora/jcr:content/root/infantaccordion",
-                "sling:resourceType", InfantAccordionImpl.RESOURCE_TYPE,
-                "sectionHeading", "Booking for infants (under 2 years)",
-                "description", "Learn how to book babies on a flight.",
-                "expandAllLabel", "Expand all items",
-                "collapseAllLabel", "Collapse all items");
-        Resource items = context.create().resource(component, "items");
-        context.create().resource(items, "item0",
-                "title", "Infants on domestic flights",
-                "description", "<p>Lap or seat.</p>");
-        context.create().resource(items, "item1",
-                "title", "Infants on international flights",
-                "description", "<p>Own ticket.</p>");
-        context.currentResource(component);
+
+        JsonNode content = loadJson(getClass(), "infant-accordion-content.json");
+        Iterator<String> names = content.fieldNames();
+        while (names.hasNext()) {
+            String name = names.next();
+            createTree(context, ROOT + "/" + name, content.get(name));
+        }
     }
 
     @Test
     void readsHeadingAndAccordionItems() {
-        InfantAccordion model = context.currentResource().adaptTo(InfantAccordion.class);
+        InfantAccordion model = accordion("withContent");
 
         assertEquals("Booking for infants (under 2 years)", model.getSectionHeading());
         assertEquals("Learn how to book babies on a flight.", model.getDescription());
@@ -77,7 +73,7 @@ class InfantAccordionImplTest {
 
     @Test
     void emptyWhenNothingIsAuthored() {
-        InfantAccordion model = accordion("/content/anchora/jcr:content/root/empty-accordion");
+        InfantAccordion model = accordion("empty");
 
         assertNull(model.getSectionHeading());
         assertNull(model.getDescription());
@@ -90,8 +86,7 @@ class InfantAccordionImplTest {
 
     @Test
     void descriptionAloneIsNotEmpty() {
-        InfantAccordion model = accordion("/content/anchora/jcr:content/root/intro-only",
-                "description", "Learn how to book babies on a flight.");
+        InfantAccordion model = accordion("introOnly");
 
         assertFalse(model.isEmpty());
         assertFalse(model.isShowExpandAll());
@@ -99,13 +94,7 @@ class InfantAccordionImplTest {
 
     @Test
     void dropsBlankRowsAndKeepsPartialRows() {
-        Resource component = accordionResource("/content/anchora/jcr:content/root/partial-items");
-        Resource items = context.create().resource(component, "items");
-        context.create().resource(items, "blank", "title", "  ", "description", "");
-        context.create().resource(items, "titleOnly", "title", "How soon can infants travel after birth?");
-        context.create().resource(items, "bodyOnly", "description", "<p>Own ticket.</p>");
-
-        InfantAccordion model = component.adaptTo(InfantAccordion.class);
+        InfantAccordion model = accordion("partialItems");
 
         assertEquals(2, model.getItems().size());
         assertEquals("How soon can infants travel after birth?", model.getItems().get(0).getTitle());
@@ -116,16 +105,8 @@ class InfantAccordionImplTest {
         assertFalse(model.isEmpty());
     }
 
-    private InfantAccordion accordion(String path, Object... properties) {
-        return accordionResource(path, properties).adaptTo(InfantAccordion.class);
-    }
-
-    private Resource accordionResource(String path, Object... properties) {
-        Map<String, Object> values = new HashMap<>();
-        values.put("sling:resourceType", InfantAccordionImpl.RESOURCE_TYPE);
-        for (int i = 0; i < properties.length; i += 2) {
-            values.put(String.valueOf(properties[i]), properties[i + 1]);
-        }
-        return context.create().resource(path, values);
+    private InfantAccordion accordion(String name) {
+        Resource resource = context.resourceResolver().getResource(ROOT + "/" + name);
+        return adaptResource(resource, InfantAccordion.class);
     }
 }

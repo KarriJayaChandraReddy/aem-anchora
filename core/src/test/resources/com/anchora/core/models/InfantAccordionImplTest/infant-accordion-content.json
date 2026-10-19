@@ -1,0 +1,41 @@
+{
+  "withContent": {
+    "sling:resourceType": "anchora/components/infantaccordion",
+    "sectionHeading": "Booking for infants (under 2 years)",
+    "description": "Learn how to book babies on a flight.",
+    "expandAllLabel": "Expand all items",
+    "collapseAllLabel": "Collapse all items",
+    "items": {
+      "item0": {
+        "title": "Infants on domestic flights",
+        "description": "<p>Lap or seat.</p>"
+      },
+      "item1": {
+        "title": "Infants on international flights",
+        "description": "<p>Own ticket.</p>"
+      }
+    }
+  },
+  "empty": {
+    "sling:resourceType": "anchora/components/infantaccordion"
+  },
+  "introOnly": {
+    "sling:resourceType": "anchora/components/infantaccordion",
+    "description": "Learn how to book babies on a flight."
+  },
+  "partialItems": {
+    "sling:resourceType": "anchora/components/infantaccordion",
+    "items": {
+      "blank": {
+        "title": "  ",
+        "description": ""
+      },
+      "titleOnly": {
+        "title": "How soon can infants travel after birth?"
+      },
+      "bodyOnly": {
+        "description": "<p>Own ticket.</p>"
+      }
+    }
+  }
+}

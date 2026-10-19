@@ -1,0 +1,254 @@
+{
+  "notAnAsset": "/content/anchora/plain.jpg",
+  "assets": {
+    "/content/dam/anchora/hero.jpg": {
+      "name": "hero.jpg",
+      "mimeType": "image/jpeg",
+      "lastModified": 1700000000000,
+      "description": "Crew member with a young passenger"
+    },
+    "/content/dam/anchora/hero-multi.jpg": {
+      "name": "hero.jpg",
+      "mimeType": "image/jpeg",
+      "lastModified": 1700000000000,
+      "description": ["Crew member with a young passenger"]
+    },
+    "/content/dam/anchora/mark.svg": {
+      "mimeType": "image/svg+xml",
+      "description": "Mark"
+    },
+    "/content/dam/anchora/untimed.jpg": {
+      "name": "untimed.jpg",
+      "mimeType": "image/jpeg",
+      "lastModified": 0,
+      "description": "Still"
+    },
+    "/content/dam/anchora/named.png": {
+      "name": "My Hero Photo.png",
+      "mimeType": "image/jpeg",
+      "lastModified": 1700000000000,
+      "description": "Named"
+    },
+    "/content/dam/anchora/symbols.jpg": {
+      "name": "!!!.jpg",
+      "mimeType": "image/jpeg",
+      "lastModified": 1700000000000,
+      "description": "Symbols"
+    },
+    "/content/dam/anchora/unnamed.jpg": {
+      "name": null,
+      "mimeType": "image/jpeg",
+      "lastModified": 1700000000000,
+      "description": "Unnamed"
+    },
+    "/content/dam/anchora/whitespace.jpg": {
+      "name": "whitespace.jpg",
+      "mimeType": "image/jpeg",
+      "lastModified": 1,
+      "description": "   "
+    },
+    "/content/dam/anchora/empty-array.jpg": {
+      "name": "empty-array.jpg",
+      "mimeType": "image/jpeg",
+      "lastModified": 1,
+      "description": []
+    },
+    "/content/dam/anchora/null-meta.jpg": {
+      "name": "null-meta.jpg",
+      "mimeType": "image/jpeg",
+      "lastModified": 1,
+      "description": null
+    },
+    "/content/dam/anchora/useful-array.jpg": {
+      "name": "useful-array.jpg",
+      "mimeType": "image/jpeg",
+      "lastModified": 1,
+      "description": ["", "  ", null, "Useful"]
+    }
+  },
+  "scenarios": {
+    "authored": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "introduction": "Young flyers are welcome."
+    },
+    "authoredAlt": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/hero.jpg",
+        "alt": "Author description"
+      }
+    },
+    "damAlt": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/hero.jpg"
+      }
+    },
+    "multiAlt": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/hero-multi.jpg"
+      }
+    },
+    "decorative": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/hero.jpg",
+        "alt": "Author description",
+        "isDecorative": true
+      }
+    },
+    "twoWidths": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/hero.jpg"
+      }
+    },
+    "missingAsset": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/missing.jpg"
+      }
+    },
+    "defaultHeading": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children"
+    },
+    "authoredHeading": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "linksHeading": "  In this article  "
+    },
+    "links": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "links": {
+        "item0": {
+          "label": "Joey Club",
+          "anchor": "joey-club"
+        },
+        "item1": {
+          "label": "Booking",
+          "anchor": "#booking-infants"
+        },
+        "item2": {
+          "label": "Missing anchor",
+          "anchor": "  "
+        },
+        "item3": {
+          "label": " ",
+          "anchor": "nowhere"
+        },
+        "item4": {
+          "label": "Bad",
+          "anchor": "javascript:alert(1)"
+        },
+        "item5": {
+          "label": "Bad",
+          "anchor": "  JAVASCRIPT:alert(1)"
+        },
+        "item6": {
+          "label": "Hash",
+          "anchor": "#"
+        }
+      }
+    },
+    "empty": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "introduction": "Only an introduction"
+    },
+    "blankText": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "  ",
+      "introduction": " \n "
+    },
+    "hero-links": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children"
+    },
+    "blankFile": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "  "
+      }
+    },
+    "notAnAsset": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/anchora/plain.jpg"
+      }
+    },
+    "svg": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/mark.svg"
+      }
+    },
+    "untimed": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/untimed.jpg"
+      }
+    },
+    "named": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/named.png"
+      }
+    },
+    "symbols": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/symbols.jpg"
+      }
+    },
+    "unnamed": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/unnamed.jpg"
+      }
+    },
+    "whitespaceMeta": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/whitespace.jpg"
+      }
+    },
+    "emptyArray": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/empty-array.jpg"
+      }
+    },
+    "nullMeta": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/null-meta.jpg"
+      }
+    },
+    "usefulArray": {
+      "sling:resourceType": "anchora/components/herobanner",
+      "title": "Flying with infants and children",
+      "image": {
+        "fileReference": "/content/dam/anchora/useful-array.jpg"
+      }
+    }
+  }
+}

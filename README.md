@@ -290,6 +290,8 @@ mvn -pl core test
 
 ### What the tests cover
 
+Component content for these tests is JSON under `core/src/test/resources`, loaded by `ModelTestJsonSupport`.
+
 **`HeroBannerImplTest`** (JUnit 5 and AEM Mocks):
 
 - title and introduction
