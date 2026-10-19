@@ -47,14 +47,16 @@ class HeroBannerImplTest {
 
     private final AemContext context = AppAemContext.newAemContext();
 
+    private final Map<String, Asset> assetsByPath = new HashMap<>();
+
     private Page page;
 
     @BeforeEach
     void setUp() {
         context.addModelsForClasses(HeroBannerImpl.class);
-        context.create().resource(ASSET_PATH, "jcr:primaryType", "dam:Asset");
-        context.create().resource(MULTI_ASSET_PATH, "jcr:primaryType", "dam:Asset");
-        context.registerAdapter(Resource.class, Asset.class, (Function<Resource, Asset>) this::adaptAsset);
+        registerAsset(ASSET_PATH, jpeg("hero.jpg", 1_700_000_000_000L, "Crew member with a young passenger"));
+        registerAsset(MULTI_ASSET_PATH, jpeg("hero.jpg", 1_700_000_000_000L, new Object[] {"Crew member with a young passenger"}));
+        context.registerAdapter(Resource.class, Asset.class, (Function<Resource, Asset>) resource -> assetsByPath.get(resource.getPath()));
         page = context.create().page("/content/anchora/us/en/flying-with-infants-children");
     }
 
@@ -159,18 +161,148 @@ class HeroBannerImplTest {
         assertTrue(hero.getJumpLinks().isEmpty());
     }
 
-    private Asset adaptAsset(Resource resource) {
-        if (!ASSET_PATH.equals(resource.getPath()) && !MULTI_ASSET_PATH.equals(resource.getPath())) {
-            return null;
-        }
+    @Test
+    void blankTitleAndIntroductionAreTreatedAsMissing() {
+        HeroBanner hero = banner(props("title", "  ", "introduction", " \n "));
+
+        assertNull(hero.getTitle());
+        assertNull(hero.getIntroduction());
+        assertTrue(hero.isEmpty());
+    }
+
+    @Test
+    void linksHeadingIdUsesTheComponentName() {
+        Resource banner = context.create().resource(page, "hero-links",
+                "sling:resourceType", HeroBannerImpl.RESOURCE_TYPE,
+                "title", "Flying with infants and children");
+
+        assertEquals("on-this-page-hero-links", banner.adaptTo(HeroBanner.class).getLinksHeadingId());
+    }
+
+    @Test
+    void imageWithoutAFileReferenceIsNotRendered() {
+        Resource banner = context.create().resource(page, "hero-no-file",
+                "sling:resourceType", HeroBannerImpl.RESOURCE_TYPE,
+                "title", "Flying with infants and children");
+        context.create().resource(banner, "image", "fileReference", "  ");
+
+        HeroBanner hero = banner.adaptTo(HeroBanner.class);
+
+        assertFalse(hero.hasImage());
+        assertNull(hero.getImageSrc());
+    }
+
+    @Test
+    void resourceThatDoesNotAdaptToAnAssetIsNotRendered() {
+        String path = "/content/anchora/plain.jpg";
+        context.create().resource(path, "jcr:primaryType", "nt:unstructured");
+
+        HeroBanner hero = bannerWithAsset(path);
+
+        assertFalse(hero.hasImage());
+        assertNull(hero.getImageSrc());
+    }
+
+    @Test
+    void svgUsesTheOriginalRendition() {
+        String path = "/content/dam/anchora/mark.svg";
         Asset asset = mock(Asset.class);
-        Object description = MULTI_ASSET_PATH.equals(resource.getPath())
-                ? new Object[] {"Crew member with a young passenger"}
-                : "Crew member with a young passenger";
+        when(asset.getMimeType()).thenReturn("image/svg+xml");
+        when(asset.getMetadata(HeroBannerImpl.DAM_DESCRIPTION)).thenReturn("Mark");
+        registerAsset(path, asset);
+
+        HeroBanner hero = bannerWithAsset(path);
+
+        assertEquals(path + "/_jcr_content/renditions/original", hero.getImageSrc());
+        assertNull(hero.getImageSrcSet());
+        assertEquals("Mark", hero.getImageAlt());
+    }
+
+    @Test
+    void missingLastModifiedOmitsTheCacheKey() {
+        String path = "/content/dam/anchora/untimed.jpg";
+        registerAsset(path, jpeg("untimed.jpg", 0L, "Still"));
+
+        String src = bannerWithAsset(path).getImageSrc();
+
+        assertTrue(src.endsWith(".coreimg.85.1200.jpeg"));
+        assertFalse(src.contains(".jpeg/"));
+    }
+
+    @Test
+    void sanitisedAssetNameIsAddedToTheRenditionUrl() {
+        String path = "/content/dam/anchora/named.png";
+        registerAsset(path, jpeg("My Hero Photo.png", 1_700_000_000_000L, "Named"));
+
+        assertTrue(bannerWithAsset(path).getImageSrc().contains("/1700000000000/my-hero-photo.jpeg"));
+    }
+
+    @Test
+    void blankAssetNameIsLeftOutOfTheRenditionUrl() {
+        String path = "/content/dam/anchora/symbols.jpg";
+        registerAsset(path, jpeg("!!!.jpg", 1_700_000_000_000L, "Symbols"));
+
+        String src = bannerWithAsset(path).getImageSrc();
+
+        assertTrue(src.endsWith("/1700000000000.jpeg"));
+        assertFalse(src.contains("/1700000000000/"));
+    }
+
+    @Test
+    void nullAssetNameStillBuildsARenditionUrl() {
+        String path = "/content/dam/anchora/unnamed.jpg";
+        registerAsset(path, jpeg(null, 1_700_000_000_000L, "Unnamed"));
+
+        assertTrue(bannerWithAsset(path).getImageSrc().endsWith("/1700000000000.jpeg"));
+    }
+
+    @Test
+    void blankOrEmptyDamDescriptionLeavesAltEmpty() {
+        registerAsset("/content/dam/anchora/whitespace.jpg", jpeg("whitespace.jpg", 1L, "   "));
+        registerAsset("/content/dam/anchora/empty-array.jpg", jpeg("empty-array.jpg", 1L, new Object[0]));
+        registerAsset("/content/dam/anchora/null-meta.jpg", jpeg("null-meta.jpg", 1L, null));
+
+        assertEquals("", bannerWithAsset("/content/dam/anchora/whitespace.jpg").getImageAlt());
+        assertEquals("", bannerWithAsset("/content/dam/anchora/empty-array.jpg").getImageAlt());
+        assertEquals("", bannerWithAsset("/content/dam/anchora/null-meta.jpg").getImageAlt());
+    }
+
+    @Test
+    void metadataArraySkipsBlanksAndUsesTheFirstText() {
+        String path = "/content/dam/anchora/useful-array.jpg";
+        registerAsset(path, jpeg("useful-array.jpg", 1L, new Object[] {"", "  ", null, "Useful"}));
+
+        assertEquals("Useful", bannerWithAsset(path).getImageAlt());
+    }
+
+    @Test
+    void javascriptAnchorsAreDropped() {
+        Resource banner = context.create().resource(page, "hero-scripts",
+                "sling:resourceType", HeroBannerImpl.RESOURCE_TYPE,
+                "title", "Flying with infants and children");
+        Resource links = context.create().resource(banner, "links");
+        context.create().resource(links, "script", "label", "Bad", "anchor", "javascript:alert(1)");
+        context.create().resource(links, "scriptUpper", "label", "Bad", "anchor", "  JAVASCRIPT:alert(1)");
+        context.create().resource(links, "hashOnly", "label", "Hash", "anchor", "#");
+        context.create().resource(links, "ok", "label", "Joey Club", "anchor", "joey-club");
+
+        HeroBanner hero = banner.adaptTo(HeroBanner.class);
+
+        assertEquals(1, hero.getJumpLinks().size());
+        assertEquals("#joey-club", hero.getJumpLinks().get(0).getHref());
+    }
+
+    private void registerAsset(String path, Asset asset) {
+        context.create().resource(path, "jcr:primaryType", "dam:Asset");
+        assetsByPath.put(path, asset);
+    }
+
+    private static Asset jpeg(String name, long lastModified, Object description) {
+        Asset asset = mock(Asset.class);
         when(asset.getMetadata(HeroBannerImpl.DAM_DESCRIPTION)).thenReturn(description);
         when(asset.getMimeType()).thenReturn("image/jpeg");
-        when(asset.getName()).thenReturn("hero.jpg");
-        when(asset.getLastModified()).thenReturn(1_700_000_000_000L);
+        when(asset.getName()).thenReturn(name);
+        when(asset.getLastModified()).thenReturn(lastModified);
         return asset;
     }
 

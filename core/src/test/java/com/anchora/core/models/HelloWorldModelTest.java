@@ -44,6 +44,7 @@ class HelloWorldModelTest {
 
     @BeforeEach
     public void setup() throws Exception {
+        context.addModelsForClasses(HelloWorldModel.class);
 
         // prepare a page with a test resource
         page = context.create().page("/content/mypage");
