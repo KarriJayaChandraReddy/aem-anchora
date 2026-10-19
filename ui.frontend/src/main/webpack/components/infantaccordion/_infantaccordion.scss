@@ -1,11 +1,11 @@
-.infantaccordion {
+section.infantaccordion {
     background: #f3f2f0;
     color: #2a2a2a;
-    padding: 72px 7vw 88px;
+    padding: 72px 7vw 40px;
 }
 
 @media (prefers-color-scheme: dark) {
-    .infantaccordion {
+    section.infantaccordion {
         background: #f3f2f0;
         color: #2a2a2a;
     }
@@ -173,9 +173,16 @@
     padding: 0 28px 18px 2px;
 }
 
+@media (max-width: 1023px) {
+    section.infantaccordion {
+        border-top-right-radius: 1.75rem;
+        overflow: hidden;
+    }
+}
+
 @media (max-width: 768px) {
-    .infantaccordion {
-        padding: 40px 24px 56px;
+    section.infantaccordion {
+        padding: 40px 24px 32px;
     }
 
     .infantaccordion__layout {
