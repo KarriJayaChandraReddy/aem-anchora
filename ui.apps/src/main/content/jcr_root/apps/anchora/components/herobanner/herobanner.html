@@ -2,8 +2,7 @@
     Hero banner. Values come from com.anchora.core.models.HeroBanner.
 */-->
 <sly data-sly-use.hero="com.anchora.core.models.HeroBanner">
-    <div class="cq-placeholder" data-sly-test="${hero.empty && wcmmode.edit}" data-emptytext="Hero Banner"></div>
-    <section class="cmp-hero" data-sly-test="${!hero.empty}">
+    <section class="cmp-hero" data-sly-test="${!hero.empty || wcmmode.edit}">
         <h1 class="cmp-hero__title" data-sly-test="${hero.title}">${hero.title}</h1>
         <div class="cmp-hero__media" data-sly-test="${hero.hasImage || wcmmode.edit}">
             <sly data-sly-resource="${'image' @ resourceType='anchora/components/image'}"></sly>
