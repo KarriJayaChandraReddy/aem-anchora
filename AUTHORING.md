@@ -33,8 +33,6 @@ On this author the page already exists:
 | Content area | Middle, white | Yes. Drop components here. |
 | Footer | Bottom, on a grey bar | No. It is locked. |
 
-![The editor. The header is locked on the grey bar. The hero title is in the white content area.](docs/authoring/editor.png)
-
 ### Which components to use
 
 In the white area, drag components from **Anchora - Content**. For this page, use only:
@@ -108,8 +106,6 @@ The Feature Teaser ID must be `joey-club`. If it is different, the Joey Club lin
 
 **Empty banner:** If there is no title and no photo, the editor shows a placeholder. The published page shows nothing until you add a title or a photo.
 
-![Published hero: the H1 and the wide photo.](docs/authoring/hero.png)
-
 ### 2.2 Feature Teaser
 
 Drag **Feature Teaser**, not **Teaser**.
@@ -167,8 +163,6 @@ Select the teaser and open the paintbrush icon (**Styles**). Choose one:
 
 When the teaser has content, a **Back to top** link appears under the picture.
 
-![The Joey Club picture on the published page.](docs/authoring/teaser.png)
-
 ### 2.3 Infant Accordion
 
 Drag **Infant Accordion**, not **Accordion**.
@@ -213,8 +207,6 @@ If both labels are empty, that control is hidden. Readers can still open panels 
 - There is no field to limit the page to one open panel.
 
 **Empty accordion:** If there is no heading, no description, and no items, the editor shows a placeholder. The published page shows nothing.
-
-![The booking section: the H2, the introduction, Expand all, and the first question.](docs/authoring/accordion.png)
 
 ---
 
