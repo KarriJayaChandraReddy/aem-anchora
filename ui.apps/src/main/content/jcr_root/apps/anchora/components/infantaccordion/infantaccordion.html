@@ -13,12 +13,13 @@
         <div class="infantaccordion__accordion">
             <button type="button"
                     class="infantaccordion__toggle"
-                    data-sly-test="${model.expandAllLabel || model.collapseAllLabel}"
+                    data-sly-test="${!model.singleExpansion && (model.expandAllLabel || model.collapseAllLabel)}"
                     data-cmp-hook-infantaccordion="toggle"
                     data-label-expand="${model.expandAllLabel @ context='attribute'}"
                     data-label-collapse="${model.collapseAllLabel @ context='attribute'}"
                     aria-expanded="false">${model.expandAllLabel}</button>
-            <div class="infantaccordion__list">
+            <div class="infantaccordion__list"
+                 data-sly-attribute.data-cmp-single-expansion="${model.singleExpansion}">
                 <div class="infantaccordion__item"
                      data-sly-repeat.item="${model.items}"
                      data-cmp-hook-infantaccordion="item"

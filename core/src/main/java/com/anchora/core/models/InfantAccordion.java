@@ -44,6 +44,11 @@ public interface InfantAccordion {
     String getCollapseAllLabel();
 
     /**
+     * @return {@code true} when only one panel may be open at a time
+     */
+    boolean isSingleExpansion();
+
+    /**
      * Empty means the author has set neither a heading, an introduction, nor an accordion item.
      *
      * @return {@code true} when the component should show the editor placeholder and no content markup

@@ -19,7 +19,7 @@ Help with filling in the dialogs is in `AUTHORING.md`.
 - Preview: `http://localhost:4502/content/anchora/us/en/flying-with-infants-children.html?wcmmode=disabled`
 - Editor: `http://localhost:4502/editor.html/content/anchora/us/en/flying-with-infants-children.html`
 
-> **Note:** A fresh install does not create this page. The page content exists only on the local author. See [Assumptions and next steps](#8-assumptions-and-next-steps).
+> **Note:** `mvn clean install -PautoInstallSinglePackage` installs this page from `ui.content`. The pictures are the placeholder images already in the repository.
 
 ---
 
@@ -42,8 +42,10 @@ Install these before you build.
 **Archetype settings:** The project was created with the AEM project archetype. The saved settings are in `archetype.properties`:
 
 ```
+archetypeVersion=56
 aemVersion=cloud
 appId=anchora
+languageCountry=us
 frontendModule=general
 includeDispatcherConfig=y
 singleCountry=y
@@ -51,7 +53,7 @@ datalayer=y
 includeExamples=n
 ```
 
-The file does not record the archetype version. `languageCountry` is still the placeholder `${languageCountry}`.
+The full list is in `archetype.properties`. The archetype version is 56. The language and country are `us`.
 
 ---
 
@@ -68,7 +70,7 @@ Follow these steps from clone to a working page.
 ```bash
 git clone <repository-url> aem-anchora
 cd aem-anchora
-mvn clean install -PautoInstallPackage
+mvn clean install -PautoInstallSinglePackage
 ```
 
 This one command does three things:
@@ -79,14 +81,7 @@ This one command does three things:
 
 **Step 4.** In the author, check that the bundle `com.anchora.core` is **Active**. Use the OSGi console or CRXDE.
 
-**Step 5.** If the page does not exist yet, create it:
-
-- Location: `/content/anchora/us/en`
-- Template: **Page Content**
-- Page name: `flying-with-infants-children`
-- Add these components in order: Hero Banner, Feature Teaser, Infant Accordion
-
-Field help is in `AUTHORING.md`.
+**Step 5.** The install creates the page at `/content/anchora/us/en/flying-with-infants-children`. It uses the **Page Content** template. Field help is in `AUTHORING.md`.
 
 **Step 6.** Open the preview link above. You should see:
 
@@ -103,7 +98,7 @@ cd ui.frontend
 npm ci
 npm run prod
 cd ..
-mvn clean install -PautoInstallPackage
+mvn clean install -PautoInstallSinglePackage
 ```
 
 `npm start` inside `ui.frontend` opens a local webpack server. It does **not** update AEM.
@@ -128,7 +123,7 @@ Only four modules were changed for this page.
 | `core` | Hero Banner model, Infant Accordion model, and their tests | The rules (alt text, empty components, jump links, accordion rows) live in Java. The HTML only prints the result. |
 | `ui.apps` | Hero Banner, Feature Teaser, Infant Accordion, and `page/customheaderlibs.html` | These hold the dialogs and the HTML. The page file also adds Open Graph tags. |
 | `ui.frontend` | Styles for the hero, teaser, and accordion, plus the accordion script | This is the look and the open/close behaviour. The build puts it in the `anchora.site` client library. |
-| `ui.content` | Page template and policies | The old locked page title was removed so the hero is the only H1. The teaser heading is fixed to H2. The hero image uses the existing image policy. |
+| `ui.content` | Page template, policies, and the sample page | The hero is the only H1. The teaser heading is fixed to H2. The page area allows Hero Banner, Feature Teaser, Infant Accordion, Title, and Text. The finished page and the Joey Club page are stored here. |
 
 **Not changed:** `ui.apps.structure`, `ui.config`, `dispatcher`, `it.tests`, `ui.tests`.
 
@@ -235,12 +230,13 @@ It extends `anchora/components/teaser`, which extends Core Teaser v2. Images go 
 | Content | Accordion items. Title is required and shown as H3. Description is rich text. | `./items/*/title`, `./items/*/description` |
 | Labels | Expand all items | `./expandAllLabel` |
 | Labels | Collapse all items | `./collapseAllLabel` |
+| Labels | Open panels. Several at a time, or one at a time. | `./singleExpansion` |
 
 **Behaviour:**
 
 - A row is skipped when both its title and description are blank.
 - All panels start closed.
-- A reader can open more than one panel at a time. The code can support one-at-a-time, but the dialog does not offer that choice.
+- **Open panels** set to **Several at a time** lets a reader open more than one panel. **One at a time** closes the others when a panel opens, and hides Expand all.
 - Each item is a button with `aria-expanded` and `aria-controls`.
 - Enter, Space, arrow keys, Home, and End work on the button.
 - The focused button has a visible outline.
@@ -344,7 +340,7 @@ Status values: **Done**, **Done on this author only**, **Partly done**, **Not do
 | TS-02 | Heading comes from policy and is H2. Authors cannot change it per teaser. | Done | `featureteaser/policy`. Dialog hides the heading picker. |
 | TS-03 | Internal links end with `.html`. New tab adds `rel="noopener noreferrer"`. | Done | Core Teaser, plus `featureteaser.html`, `title.html`, `action.html` |
 | TS-04 | Extend Core Teaser and explain why | Done | `featureteaser/.content.xml` and [Design decisions](#5-design-decisions) |
-| TS-05 | Title "Joey Club" and link "Find out about the Joey Club" to a page on this site | Done on this author only | Page content. Link target is `/content/anchora/us/en/joey-club`. Not in Git. |
+| TS-05 | Title "Joey Club" and link "Find out about the Joey Club" to a page on this site | Done | `ui.content/.../flying-with-infants-children` and `ui.content/.../joey-club` |
 
 ### Infant Accordion
 
@@ -352,8 +348,8 @@ Status values: **Done**, **Done on this author only**, **Partly done**, **Not do
 |---|---|---|---|
 | AC-01 | Heading and introduction beside the accordion | Done | `infantaccordion.html`, `InfantAccordionImpl.java` |
 | AC-02 | Authors can add, remove, and reorder items. Each has a title and rich text. | Done | Dialog field `./items` |
-| AC-03 | The six booking titles | Done on this author only | Page content. Not in Git. |
-| AC-04 | A setting for one open panel or many. All panels start closed. | Partly done | Panels start closed. No setting, so many panels can be open. |
+| AC-03 | The six booking titles | Done | `ui.content/.../flying-with-infants-children/.content.xml` |
+| AC-04 | A setting for one open panel or many. All panels start closed. | Done | Dialog field `./singleExpansion`. Panels start closed in `infantaccordion.html`. |
 | AC-05 | Buttons with `aria-expanded` and `aria-controls`, keyboard use, visible focus outline | Done | `infantaccordion.html`, `infantaccordion.js`, `_infantaccordion.scss` |
 | AC-06 | A closed item can still be edited | Done | Items are edited in the dialog, not inside the panel |
 | AC-07 | Explain why this is a new component | Done | [Design decisions](#5-design-decisions) |
@@ -362,10 +358,10 @@ Status values: **Done**, **Done on this author only**, **Partly done**, **Not do
 
 | ID | Requirement | Status | Where |
 |---|---|---|---|
-| PT-01 | Template locks header and footer. Page area allows only needed components, plus Title and Text. | Partly done | Header and footer are locked. The page area still allows every component in **Anchora - Content**, plus forms. |
+| PT-01 | Template locks header and footer. Page area allows only needed components, plus Title and Text. | Done | Header and footer stay locked. Page Content policy allows Hero Banner, Feature Teaser, Infant Accordion, Title, and Text. |
 | PT-02 | Header and footer defined once and not editable on the page | Partly done | Locked experience fragments. Header is still the sample navigation. Footer is a copyright line and address, with no links. |
-| PT-03 | Page created from the template and filled in on the author | Done on this author only | `/content/anchora/us/en/flying-with-infants-children`. A fresh install does not create it. |
-| PT-04 | Landmarks: `header`, named `nav`, `main`, `footer`, and a skip link | Not done | No skip link. Header and footer are not in those landmarks. |
+| PT-03 | Page created from the template and filled in on the author | Done | `ui.content/.../flying-with-infants-children/.content.xml` |
+| PT-04 | Landmarks: `header`, named `nav`, `main`, `footer`, and a skip link | Partly done | The content area is a `main` element with id `main`. The page policy sets `mainContentSelector` so Core Page renders the skip link. Header, nav, and footer landmarks are still the sample fragments. |
 | PT-05 | Readable at 375px and 1280px | Partly done | Styles have breakpoints. No saved check at those widths. |
 | PT-06 | CSS and JavaScript from client libraries. No style or script blocks in HTML. | Done | `anchora.site` |
 
@@ -373,10 +369,10 @@ Status values: **Done**, **Done on this author only**, **Partly done**, **Not do
 
 | ID | Requirement | Status | Where |
 |---|---|---|---|
-| EN-01 | Record the AEM archetype version and settings | Partly done | Settings are in `archetype.properties`. Version number is missing. `languageCountry` is still a placeholder. |
-| EN-02 | `mvn clean install -PautoInstallPackage` installs to author on port 4502 | Done for the code | A clean author does not get the sample page. See EN-04. |
+| EN-01 | Record the AEM archetype version and settings | Done | `archetype.properties`. Archetype 56. `languageCountry=us`. |
+| EN-02 | `mvn clean install -PautoInstallSinglePackage` installs to author on port 4502 | Done | Profile on the `all` module. The sample page is in `ui.content`. |
 | EN-03 | Every Sling Model has JUnit 5 tests with AEM Mocks. A failed test stops the build. | Done | `HeroBannerImplTest`, `InfantAccordionImplTest`, sample model test |
-| EN-04 | Finished page stored in `ui.content` | Not done | The page exists only on this author. |
+| EN-04 | Finished page stored in `ui.content` | Done | `flying-with-infants-children` and `joey-club`, using the placeholder images in `/content/dam/anchora`. |
 | EN-05 | Work committed on a feature branch and merged by pull request | Not done | |
 | EN-06 | No browser console errors and no new `error.log` lines from this code | Not done | Not signed off. |
 
@@ -392,22 +388,16 @@ Status values: **Done**, **Done on this author only**, **Partly done**, **Not do
 - Accordion answers are edited in the dialog, so a closed panel can still be edited.
 - The teaser pretitle is hidden with CSS when it would repeat the title.
 - The Open Graph tags are an extra. The task did not ask for them. The image tag uses the page featured image.
-- The text on the sample page lives on this author. The component code lives in Git.
+- The sample page in Git uses short placeholder sentences and the placeholder photographs. It does not copy the reference site's photographs or body text.
 
 ### Known limitations
 
-- A new AEM author does not get the page, the Joey Club page, or the images they use.
-- The page area allows more components than the task asked for.
-- There is no skip link.
-- Authors cannot choose one open panel or many open panels.
 - The header and footer are still the project samples.
 - The accordion tests do not run in a browser.
 - The hero Java code can build image URLs, but the page uses the nested Image component instead.
 
 ### With one more day
 
-1. Save the page and the Joey Club page in `ui.content`, so one Maven install shows the finished page.
-2. Limit which components can be dropped on the page.
-3. Add the skip link and page landmarks.
-4. Replace the sample header and footer.
-5. Either add the one-open-panel setting, or remove the unused code for it.
+1. Replace the sample header and footer, including a named `nav` landmark.
+2. Record a check of the page at 375px and 1280px.
+3. Open the browser console and `error.log` after a clean install and sign off EN-06.

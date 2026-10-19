@@ -63,6 +63,9 @@ public class InfantAccordionImpl implements InfantAccordion {
     @ValueMapValue
     private String collapseAllLabel;
 
+    @ValueMapValue
+    private String singleExpansion;
+
     private List<InfantAccordionItem> items = Collections.emptyList();
 
     @PostConstruct
@@ -102,6 +105,11 @@ public class InfantAccordionImpl implements InfantAccordion {
     @Override
     public String getCollapseAllLabel() {
         return collapseAllLabel;
+    }
+
+    @Override
+    public boolean isSingleExpansion() {
+        return Boolean.parseBoolean(singleExpansion);
     }
 
     @Override

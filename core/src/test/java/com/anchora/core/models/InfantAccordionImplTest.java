@@ -64,6 +64,7 @@ class InfantAccordionImplTest {
         assertEquals("Learn how to book babies on a flight.", model.getDescription());
         assertEquals("Expand all items", model.getExpandAllLabel());
         assertEquals("Collapse all items", model.getCollapseAllLabel());
+        assertFalse(model.isSingleExpansion());
         assertTrue(model.isShowExpandAll());
         assertEquals(2, model.getItems().size());
         assertEquals("Infants on domestic flights", model.getItems().get(0).getTitle());
@@ -79,9 +80,18 @@ class InfantAccordionImplTest {
         assertNull(model.getDescription());
         assertNull(model.getExpandAllLabel());
         assertNull(model.getCollapseAllLabel());
+        assertFalse(model.isSingleExpansion());
         assertTrue(model.getItems().isEmpty());
         assertFalse(model.isShowExpandAll());
         assertTrue(model.isEmpty());
+    }
+
+    @Test
+    void oneOpenPanelSettingIsReadFromTheDialog() {
+        InfantAccordion model = accordion("singleOpen");
+
+        assertTrue(model.isSingleExpansion());
+        assertEquals(1, model.getItems().size());
     }
 
     @Test

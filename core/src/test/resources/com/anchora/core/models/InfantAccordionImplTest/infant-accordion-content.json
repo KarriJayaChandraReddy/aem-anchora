@@ -5,6 +5,7 @@
     "description": "Learn how to book babies on a flight.",
     "expandAllLabel": "Expand all items",
     "collapseAllLabel": "Collapse all items",
+    "singleExpansion": "false",
     "items": {
       "item0": {
         "title": "Infants on domestic flights",
@@ -18,6 +19,18 @@
   },
   "empty": {
     "sling:resourceType": "anchora/components/infantaccordion"
+  },
+  "singleOpen": {
+    "sling:resourceType": "anchora/components/infantaccordion",
+    "sectionHeading": "Booking for infants (under 2 years)",
+    "singleExpansion": "true",
+    "expandAllLabel": "Expand all items",
+    "items": {
+      "item0": {
+        "title": "Infants on domestic flights",
+        "description": "<p>Lap or seat.</p>"
+      }
+    }
   },
   "introOnly": {
     "sling:resourceType": "anchora/components/infantaccordion",

@@ -241,7 +241,7 @@
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Page Content"
                     sling:resourceType="wcm/core/components/policy/policy"
-                    components="[group:Anchora - Content,/apps/anchora/components/form/container]">
+                    components="[/apps/anchora/components/herobanner,/apps/anchora/components/featureteaser,/apps/anchora/components/infantaccordion,/apps/anchora/components/title,/apps/anchora/components/text]">
                     <jcr:content jcr:primaryType="nt:unstructured"/>
                     <cq:authoring jcr:primaryType="nt:unstructured">
                         <assetToComponentMapping jcr:primaryType="nt:unstructured">
@@ -377,7 +377,8 @@
                     jcr:title="Generic Page"
                     sling:resourceType="wcm/core/components/policy/policy"
                     clientlibs="[anchora.dependencies,anchora.site]"
-                    clientlibsJsHead="anchora.dependencies">
+                    clientlibsJsHead="anchora.dependencies"
+                    mainContentSelector="main">
                     <jcr:content jcr:primaryType="nt:unstructured"/>
                 </policy>
             </page>

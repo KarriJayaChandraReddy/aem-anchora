@@ -49,7 +49,7 @@ In the white area, drag components from **Anchora - Content**. For this page, us
 - **Accordion.** This is a different component. It has no introduction and no Expand all control.
 - **Title**, if you want it to be the page heading. The Hero Banner title is the only H1. A Title component on this template can only be H2 to H6.
 
-The template also allows other components in **Anchora - Content**, such as Text and Image. You do not need them for this page.
+The page area allows five components: Hero Banner, Feature Teaser, Infant Accordion, Title, and Text. The generic Teaser, the generic Accordion, and Image are not in that list.
 
 ---
 
@@ -197,14 +197,15 @@ The six titles on this page are:
 |---|---|
 | Expand all items | The words on the control that opens every panel. On this page: `Expand all items`. |
 | Collapse all items | The words on the control that closes every panel. On this page: `Collapse all items`. |
+| Open panels | **Several at a time** lets a reader open more than one panel. **One at a time** keeps only one panel open and hides Expand all. |
 
-If both labels are empty, that control is hidden. Readers can still open panels one at a time.
+If both labels are empty, the Expand all control is hidden. Readers can still open panels one at a time.
 
 #### How the panels behave
 
 - All panels start closed.
-- A reader can open more than one panel at a time.
-- There is no field to limit the page to one open panel.
+- With **Open panels** set to **Several at a time**, a reader can open more than one panel.
+- With **Open panels** set to **One at a time**, opening a panel closes the others.
 
 **Empty accordion:** If there is no heading, no description, and no items, the editor shows a placeholder. The published page shows nothing.
 
