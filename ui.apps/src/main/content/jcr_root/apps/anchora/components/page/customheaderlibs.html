@@ -16,5 +16,17 @@
 <sly data-sly-use.clientlib="core/wcm/components/commons/v1/templates/clientlib.html">
     <sly data-sly-call="${clientlib.css @ categories='anchora.base'}"/>
 </sly>
+<sly data-sly-use.page="com.adobe.cq.wcm.core.components.models.Page"
+     data-sly-test.pageUrl="${'{0}://{1}:{2}{3}.html' @ format=[request.scheme, request.serverName, request.serverPort, currentPage.path]}">
+    <meta name="pagetitle" content="${page.title}"/>
+    <meta property="og:title" content="${page.title}${page.brandSlug ? ' | ' : ''}${page.brandSlug}"/>
+    <meta data-sly-test="${page.description}" property="og:description" content="${page.description}"/>
+    <meta property="og:url" content="${pageUrl}"/>
+    <sly data-sly-test.image="${page.exportedItems['cq:featuredimage']}">
+        <meta property="og:image" content="${request.scheme}://${request.serverName}:${request.serverPort}${image.src}"/>
+        <meta property="og:image:secure_url" content="${request.scheme}://${request.serverName}:${request.serverPort}${image.src}"/>
+        <meta data-sly-test="${image.alt}" property="og:image:alt" content="${image.alt}"/>
+    </sly>
+</sly>
 
 <sly data-sly-resource="${'contexthub' @ resourceType='granite/contexthub/components/contexthub'}"/>
