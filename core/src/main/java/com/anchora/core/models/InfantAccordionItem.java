@@ -18,7 +18,7 @@ package com.anchora.core.models;
 /**
  * One accordion question and answer.
  */
-public class InfantBookingItem {
+public class InfantAccordionItem {
 
     private final String title;
     private final String description;
@@ -27,7 +27,7 @@ public class InfantBookingItem {
      * @param title accordion item heading
      * @param description accordion item answer HTML
      */
-    public InfantBookingItem(String title, String description) {
+    public InfantAccordionItem(String title, String description) {
         this.title = title;
         this.description = description;
     }

@@ -1,17 +1,17 @@
-.infantbooking {
+.infantaccordion {
     background: #f3f2f0;
     color: #2a2a2a;
     padding: 72px 7vw 88px;
 }
 
 @media (prefers-color-scheme: dark) {
-    .infantbooking {
+    .infantaccordion {
         background: #f3f2f0;
         color: #2a2a2a;
     }
 }
 
-.infantbooking__layout {
+.infantaccordion__layout {
     display: grid;
     grid-template-columns: minmax(280px, 480px) minmax(0, 1fr);
     column-gap: 64px;
@@ -21,7 +21,7 @@
     margin: 0 auto;
 }
 
-.infantbooking__heading {
+.infantaccordion__heading {
     margin: 0;
     max-width: 460px;
     color: #2b2b2b;
@@ -31,7 +31,7 @@
     line-height: 1.15;
 }
 
-.infantbooking__description {
+.infantaccordion__description {
     margin: 48px 0 0;
     max-width: 380px;
     color: #3c3c3c;
@@ -39,7 +39,7 @@
     line-height: 1.45;
 }
 
-.infantbooking__toggle {
+.infantaccordion__toggle {
     display: block;
     margin: 0 0 14px auto;
     padding: 2px 0;
@@ -54,27 +54,27 @@
     cursor: pointer;
 }
 
-.infantbooking__toggle:focus {
+.infantaccordion__toggle:focus {
     outline: 2px solid #1a1a1a;
     outline-offset: 3px;
 }
 
-.infantbooking__item {
+.infantaccordion__item {
     border-bottom: 1px solid #d8d8d8;
 }
 
-.infantbooking__item:first-child {
+.infantaccordion__item:first-child {
     border-top: 1px solid #d8d8d8;
 }
 
-.infantbooking__header {
+.infantaccordion__header {
     margin: 0;
     font-size: 16px;
     font-weight: 600;
     line-height: 1.4;
 }
 
-.infantbooking__button {
+.infantaccordion__button {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -91,16 +91,16 @@
     cursor: pointer;
 }
 
-.infantbooking__button:focus {
+.infantaccordion__button:focus {
     outline: 2px solid #1a1a1a;
     outline-offset: -2px;
 }
 
-.infantbooking__title {
+.infantaccordion__title {
     flex: 1 1 auto;
 }
 
-.infantbooking__icon {
+.infantaccordion__icon {
     flex: 0 0 auto;
     width: 9px;
     height: 9px;
@@ -110,48 +110,48 @@
     transform: rotate(45deg) translateY(-2px);
 }
 
-.infantbooking__button--expanded .infantbooking__icon {
+.infantaccordion__button--expanded .infantaccordion__icon {
     visibility: hidden;
 }
 
-.infantbooking__panel {
+.infantaccordion__panel {
     color: #333;
     font-size: 15px;
     font-weight: 400;
     line-height: 1.5;
 }
 
-.infantbooking__panel--hidden {
+.infantaccordion__panel--hidden {
     display: none;
 }
 
-.infantbooking__panel--expanded {
+.infantaccordion__panel--expanded {
     display: block;
     padding: 0 28px 18px 2px;
 }
 
-.infantbooking__answer ul {
+.infantaccordion__answer ul {
     margin: 4px 0 0;
     padding-left: 1.25em;
 }
 
-.infantbooking__answer li {
+.infantaccordion__answer li {
     margin: 0 0 14px;
 }
 
-.infantbooking__answer p {
+.infantaccordion__answer p {
     margin: 0 0 10px;
 }
 
-.infantbooking__description a,
-.infantbooking__answer a {
+.infantaccordion__description a,
+.infantaccordion__answer a {
     color: #e10600;
     text-decoration: underline;
     text-underline-offset: 2px;
 }
 
-.infantbooking__description a.infantbooking__arrow,
-.infantbooking__answer a.infantbooking__arrow {
+.infantaccordion__description a.infantaccordion__arrow,
+.infantaccordion__answer a.infantaccordion__arrow {
     display: inline-block;
     margin-top: 8px;
     color: #e10600;
@@ -159,39 +159,39 @@
     text-decoration: none;
 }
 
-.infantbooking__description a.infantbooking__arrow::after,
-.infantbooking__answer a.infantbooking__arrow::after {
+.infantaccordion__description a.infantaccordion__arrow::after,
+.infantaccordion__answer a.infantaccordion__arrow::after {
     content: "\2192";
     margin-left: 0.35em;
     font-weight: 600;
     text-decoration: none;
 }
 
-.aem-AuthorLayer-Edit .infantbooking__panel--hidden,
-.cq-wcm-edit .infantbooking__panel--hidden {
+.aem-AuthorLayer-Edit .infantaccordion__panel--hidden,
+.cq-wcm-edit .infantaccordion__panel--hidden {
     display: block;
     padding: 0 28px 18px 2px;
 }
 
 @media (max-width: 768px) {
-    .infantbooking {
+    .infantaccordion {
         padding: 40px 24px 56px;
     }
 
-    .infantbooking__layout {
+    .infantaccordion__layout {
         grid-template-columns: 1fr;
     }
 
-    .infantbooking__heading,
-    .infantbooking__description {
+    .infantaccordion__heading,
+    .infantaccordion__description {
         max-width: none;
     }
 
-    .infantbooking__heading {
+    .infantaccordion__heading {
         font-size: 32px;
     }
 
-    .infantbooking__description {
+    .infantaccordion__description {
         margin-top: 16px;
     }
 }

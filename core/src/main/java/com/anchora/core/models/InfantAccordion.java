@@ -18,10 +18,10 @@ package com.anchora.core.models;
 import java.util.List;
 
 /**
- * Infant booking section: a heading and introduction beside an accordion.
+ * Infant Accordion section: a heading and introduction beside an accordion.
  * HTL renders these values and does not decide them.
  */
-public interface InfantBooking {
+public interface InfantAccordion {
 
     /**
      * @return authored section heading, or {@code null} when blank
@@ -58,5 +58,5 @@ public interface InfantBooking {
     /**
      * @return accordion items, never {@code null}
      */
-    List<InfantBookingItem> getItems();
+    List<InfantAccordionItem> getItems();
 }

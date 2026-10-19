@@ -2,16 +2,16 @@
     "use strict";
 
     var selectors = {
-        self: "[data-cmp-is='infantbooking']",
-        item: "[data-cmp-hook-infantbooking='item']",
-        button: "[data-cmp-hook-infantbooking='button']",
-        toggle: "[data-cmp-hook-infantbooking='toggle']"
+        self: "[data-cmp-is='infantaccordion']",
+        item: "[data-cmp-hook-infantaccordion='item']",
+        button: "[data-cmp-hook-infantaccordion='button']",
+        toggle: "[data-cmp-hook-infantaccordion='toggle']"
     };
 
     var classes = {
-        buttonExpanded: "infantbooking__button--expanded",
-        panelExpanded: "infantbooking__panel--expanded",
-        panelHidden: "infantbooking__panel--hidden"
+        buttonExpanded: "infantaccordion__button--expanded",
+        panelExpanded: "infantaccordion__panel--expanded",
+        panelHidden: "infantaccordion__panel--hidden"
     };
 
     function isSingleExpansion(accordion) {
@@ -20,7 +20,7 @@
 
     function itemsOf(accordion) {
         return [].slice.call(accordion.querySelectorAll(selectors.item)).filter(function (item) {
-            return item.closest(".infantbooking__list") === accordion;
+            return item.closest(".infantaccordion__list") === accordion;
         });
     }
 
@@ -30,7 +30,7 @@
 
     function setExpanded(item, expanded) {
         var button = item.querySelector(selectors.button);
-        var panel = item.querySelector("[data-cmp-hook-infantbooking='panel']");
+        var panel = item.querySelector("[data-cmp-hook-infantaccordion='panel']");
         if (!button || !panel) {
             return;
         }
@@ -110,10 +110,10 @@
         moveFocus(items, next);
     }
 
-    function InfantBooking(config) {
+    function InfantAccordion(config) {
         function init(root) {
             root.removeAttribute("data-cmp-is");
-            var accordion = root.querySelector(".infantbooking__list");
+            var accordion = root.querySelector(".infantaccordion__list");
             if (!accordion) {
                 return;
             }
@@ -167,10 +167,10 @@
         }
 
         function markSeparateLineLinks(root) {
-            var links = root.querySelectorAll(".infantbooking__description a, .infantbooking__answer a");
+            var links = root.querySelectorAll(".infantaccordion__description a, .infantaccordion__answer a");
             Array.prototype.forEach.call(links, function (link) {
                 if (isSeparateLineLink(link)) {
-                    link.classList.add("infantbooking__arrow");
+                    link.classList.add("infantaccordion__arrow");
                 }
             });
         }
@@ -182,7 +182,7 @@
 
     function initElements(elements) {
         for (var i = 0; i < elements.length; i++) {
-            new InfantBooking({ element: elements[i] });
+            new InfantAccordion({ element: elements[i] });
         }
     }
 

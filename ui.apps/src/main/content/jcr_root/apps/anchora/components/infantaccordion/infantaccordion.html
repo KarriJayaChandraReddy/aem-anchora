@@ -1,0 +1,49 @@
+<sly data-sly-use.model="com.anchora.core.models.InfantAccordion"></sly>
+<sly data-sly-use.templates="core/wcm/components/commons/v1/templates.html"></sly>
+<sly data-sly-call="${templates.placeholder @ isEmpty=model.empty, emptyTextAppend='Configure Infant Accordion'}"></sly>
+
+<section class="infantaccordion"
+         data-sly-test="${!model.empty}"
+         data-cmp-is="infantaccordion">
+    <div class="infantaccordion__layout">
+        <div class="infantaccordion__intro">
+            <h2 class="infantaccordion__heading" data-sly-test="${model.sectionHeading}">${model.sectionHeading}</h2>
+            <div class="infantaccordion__description" data-sly-test="${model.description}">${model.description @ context='html'}</div>
+        </div>
+        <div class="infantaccordion__accordion">
+            <button type="button"
+                    class="infantaccordion__toggle"
+                    data-sly-test="${model.expandAllLabel || model.collapseAllLabel}"
+                    data-cmp-hook-infantaccordion="toggle"
+                    data-label-expand="${model.expandAllLabel @ context='attribute'}"
+                    data-label-collapse="${model.collapseAllLabel @ context='attribute'}"
+                    aria-expanded="false">${model.expandAllLabel}</button>
+            <div class="infantaccordion__list">
+                <div class="infantaccordion__item"
+                     data-sly-repeat.item="${model.items}"
+                     data-cmp-hook-infantaccordion="item"
+                     id="item${itemList.index}">
+                    <h3 class="infantaccordion__header">
+                        <button id="item${itemList.index}-button"
+                                class="infantaccordion__button"
+                                type="button"
+                                aria-expanded="false"
+                                aria-controls="item${itemList.index}-panel"
+                                data-cmp-hook-infantaccordion="button">
+                            <span class="infantaccordion__title">${item.title}</span>
+                            <span class="infantaccordion__icon" aria-hidden="true"></span>
+                        </button>
+                    </h3>
+                    <div id="item${itemList.index}-panel"
+                         class="infantaccordion__panel infantaccordion__panel--hidden"
+                         role="region"
+                         aria-labelledby="item${itemList.index}-button"
+                         aria-hidden="true"
+                         data-cmp-hook-infantaccordion="panel">
+                        <div class="infantaccordion__answer" data-sly-test="${item.description}">${item.description @ context='html'}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -3,5 +3,5 @@
     cq:icon="panel"
     jcr:description="Heading and introduction beside an accordion of questions and answers."
     jcr:primaryType="cq:Component"
-    jcr:title="Infant booking"
+    jcr:title="Infant Accordion"
     componentGroup="Anchora - Content"/>

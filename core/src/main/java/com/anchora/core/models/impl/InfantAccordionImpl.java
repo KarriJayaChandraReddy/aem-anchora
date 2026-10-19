@@ -29,20 +29,20 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.SlingObject;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
-import com.anchora.core.models.InfantBooking;
-import com.anchora.core.models.InfantBookingItem;
+import com.anchora.core.models.InfantAccordion;
+import com.anchora.core.models.InfantAccordionItem;
 
 /**
- * Reads the infant booking dialog: introduction fields and accordion items.
+ * Reads the infant accordion dialog: introduction fields and accordion items.
  */
 @Model(
         adaptables = Resource.class,
-        adapters = InfantBooking.class,
-        resourceType = InfantBookingImpl.RESOURCE_TYPE,
+        adapters = InfantAccordion.class,
+        resourceType = InfantAccordionImpl.RESOURCE_TYPE,
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class InfantBookingImpl implements InfantBooking {
+public class InfantAccordionImpl implements InfantAccordion {
 
-    public static final String RESOURCE_TYPE = "anchora/components/infantbooking";
+    public static final String RESOURCE_TYPE = "anchora/components/infantaccordion";
 
     private static final String ITEMS = "items";
     private static final String TITLE = "title";
@@ -63,7 +63,7 @@ public class InfantBookingImpl implements InfantBooking {
     @ValueMapValue
     private String collapseAllLabel;
 
-    private List<InfantBookingItem> items = Collections.emptyList();
+    private List<InfantAccordionItem> items = Collections.emptyList();
 
     @PostConstruct
     protected void init() {
@@ -71,7 +71,7 @@ public class InfantBookingImpl implements InfantBooking {
         if (itemsResource == null) {
             return;
         }
-        List<InfantBookingItem> built = new ArrayList<>();
+        List<InfantAccordionItem> built = new ArrayList<>();
         for (Resource child : itemsResource.getChildren()) {
             ValueMap properties = child.getValueMap();
             String title = properties.get(TITLE, String.class);
@@ -79,7 +79,7 @@ public class InfantBookingImpl implements InfantBooking {
             if (StringUtils.isBlank(title) && StringUtils.isBlank(itemDescription)) {
                 continue;
             }
-            built.add(new InfantBookingItem(title, itemDescription));
+            built.add(new InfantAccordionItem(title, itemDescription));
         }
         items = Collections.unmodifiableList(built);
     }
@@ -117,7 +117,7 @@ public class InfantBookingImpl implements InfantBooking {
     }
 
     @Override
-    public List<InfantBookingItem> getItems() {
+    public List<InfantAccordionItem> getItems() {
         return items;
     }
 }

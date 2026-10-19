@@ -20,7 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import com.anchora.core.models.impl.InfantBookingImpl;
+import com.anchora.core.models.impl.InfantAccordionImpl;
 import com.anchora.core.testcontext.AppAemContext;
 
 import io.wcm.testing.mock.aem.junit5.AemContext;
@@ -31,17 +31,17 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(AemContextExtension.class)
-class InfantBookingImplTest {
+class InfantAccordionImplTest {
 
     private final AemContext context = AppAemContext.newAemContext();
 
     @BeforeEach
     void setUp() {
-        context.addModelsForClasses(InfantBookingImpl.class);
-        context.create().resource("/apps/anchora/components/infantbooking");
+        context.addModelsForClasses(InfantAccordionImpl.class);
+        context.create().resource("/apps/anchora/components/infantaccordion");
         context.create().page("/content/anchora");
-        Resource component = context.create().resource("/content/anchora/jcr:content/root/infantbooking",
-                "sling:resourceType", InfantBookingImpl.RESOURCE_TYPE,
+        Resource component = context.create().resource("/content/anchora/jcr:content/root/infantaccordion",
+                "sling:resourceType", InfantAccordionImpl.RESOURCE_TYPE,
                 "sectionHeading", "Booking for infants (under 2 years)",
                 "description", "Learn how to book babies on a flight.");
         Resource items = context.create().resource(component, "items");
@@ -56,7 +56,7 @@ class InfantBookingImplTest {
 
     @Test
     void readsHeadingAndAccordionItems() {
-        InfantBooking model = context.currentResource().adaptTo(InfantBooking.class);
+        InfantAccordion model = context.currentResource().adaptTo(InfantAccordion.class);
 
         assertEquals("Booking for infants (under 2 years)", model.getSectionHeading());
         assertEquals("Learn how to book babies on a flight.", model.getDescription());
