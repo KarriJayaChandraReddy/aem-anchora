@@ -2,12 +2,7 @@
 //== XF Header style, used on page template
 
 header.experiencefragment {
-    padding: .5em 1em;
-    border-bottom: 1px solid $color-foreground;
-
-    @media (prefers-color-scheme: dark) {
-        border-bottom-color: $color-foreground-dark;
-    }
+    padding: 0;
 
     a {
         color: $color-foreground;
@@ -33,6 +28,18 @@ header.experiencefragment {
     .cmp-container {
         display: grid;
         grid-template-columns: 4fr 1fr 1fr;
+    }
+
+    // A banner image is the only item in this header, so it has to cover
+    // every column. Otherwise it stays in the first 4fr track (~67% width).
+    .image {
+        grid-column: 1 / -1;
+    }
+
+    .cmp-image__image {
+        display: block;
+        width: 100%;
+        height: auto;
     }
 
     //== Navigation

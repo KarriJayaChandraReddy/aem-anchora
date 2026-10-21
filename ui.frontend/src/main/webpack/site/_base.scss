@@ -1,5 +1,13 @@
 //== Base
 
+html {
+    scroll-behavior: smooth;
+
+    @media (prefers-reduced-motion: reduce) {
+        scroll-behavior: auto;
+    }
+}
+
 html,
 body {
     margin: 0;

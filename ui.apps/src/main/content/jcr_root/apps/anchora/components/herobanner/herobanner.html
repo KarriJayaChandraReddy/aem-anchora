@@ -1,28 +1,37 @@
 <!--/*
     Hero banner. Values come from com.anchora.core.models.HeroBanner.
+    Markup follows the Qantas hero + in-page nav so the styles can match.
 */-->
 <sly data-sly-use.hero="com.anchora.core.models.HeroBanner">
     <div class="cq-placeholder" data-sly-test="${hero.empty && wcmmode.edit}" data-emptytext="Hero Banner"></div>
-    <section class="cmp-hero hero${hero.hasImage ? '' : ' no-hero-image'}" data-sly-test="${!hero.empty}">
-        <h1 class="cmp-hero__title" data-sly-test="${hero.title}">${hero.title}</h1>
-        <div class="cmp-hero__media" data-sly-test="${hero.hasImage}">
-            <sly data-sly-resource="${'image' @ resourceType='anchora/components/image'}"></sly>
-        </div>
-        <div class="cmp-hero__body">
-            <div class="hero-content-container has-text">
-                <div class="hero-text-content" data-testid="hero-text-content">
-                   <div class="intro" data-testid="hero-intro" data-sly-test="${hero.introduction}">
-                       ${hero.introduction @ context='html'}
+    <section class="cmp-hero hero-container" data-sly-test="${!hero.empty}">
+        <div class="hero-wrapper">
+            <div class="hero v2${hero.hasImage ? ' hide-image-mobile' : ' no-hero-image'}">
+                <h1 class="cmp-hero__title" data-sly-test="${hero.title}">${hero.title}</h1>
+                <div class="hero-image-and-content">
+                    <div class="image cmp-hero__media" data-sly-test="${hero.hasImage}">
+                        <sly data-sly-resource="${'image' @ resourceType='anchora/components/image'}"></sly>
+                    </div>
+                    <div class="hero-content-container has-text" data-sly-test="${hero.introduction}">
+                        <div class="hero-text-content" data-testid="hero-text-content">
+                            <div class="intro" data-testid="hero-intro">
+                                ${hero.introduction @ context='html'}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <nav class="cmp-hero__links" aria-labelledby="${hero.linksHeadingId}" data-sly-test="${hero.jumpLinks}">
-                <p class="cmp-hero__links-heading" id="${hero.linksHeadingId}">${hero.linksHeading}</p>
-                <ul>
+        </div>
+        <div class="in-page-nav-wrapper" data-sly-test="${hero.jumpLinks}">
+            <nav class="in-page-nav cmp-hero__links" aria-labelledby="${hero.linksHeadingId}">
+                <h2 class="nav-heading title-01 cmp-hero__links-heading" id="${hero.linksHeadingId}">${hero.linksHeading}</h2>
+                <div class="nav-links-wrapper">
+                <ul class="nav-list">
                     <li data-sly-repeat.link="${hero.jumpLinks}">
-                        <a href="${link.href}">${link.label}</a>
+                        <a class="nav-link body-01" href="${link.href}">${link.label}</a>
                     </li>
                 </ul>
+                </div>
             </nav>
         </div>
     </section>

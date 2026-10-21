@@ -1,6 +1,19 @@
+// Page canvas for the content template. The hero owns its own inset;
+// the main container stays full width and white, matching the Qantas page.
 
-//== Container main content style, used on page template
+body.page {
+    background-color: #fff;
+    color: #323232;
+}
 
-// main.container {
-//     padding: .5em 1em;
-// }
+main.container {
+    background-color: #fff;
+    color: #323232;
+
+    > .cmp-container {
+        padding: 0;
+        margin: 0;
+        background-color: #fff;
+        max-width: none;
+    }
+}

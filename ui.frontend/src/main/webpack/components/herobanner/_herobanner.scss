@@ -1,9 +1,36 @@
+// Qantas hero + in-page nav.
+// Breakpoints: small < 36rem, medium >= 36rem, large >= 64rem.
+// Tokens resolved from https://www.qantas.com/blocks/hero/hero.css
+// and https://www.qantas.com/blocks/in-page-nav/in-page-nav.css
+
+$hero-text: #323232;
+$hero-red: #df0000;
+$hero-visited: #871547;
+$hero-surface: #fff;
+$hero-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M11 3V17.17L7.41 13.59L6 15L12 21L18 15L16.59 13.59L13 17.17V3H11Z'/%3E%3C/svg%3E");
+
 .cmp-hero {
   box-sizing: border-box;
-  max-width: 100%;
-  background: #fff;
-  color: #323232;
-  padding: 0rem 2rem 0.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: none;
+  margin: 0 0 3rem;
+  padding: 0 1rem;
+  background: transparent;
+  color: $hero-text;
+  font-family: $font-family;
+
+  @media (min-width: 36rem) {
+    margin-bottom: 3.5rem;
+    padding: 0 2rem;
+  }
+
+  @media (min-width: 64rem) {
+    margin-bottom: 7rem;
+    padding: 0 6rem;
+  }
 
   *,
   *::before,
@@ -11,186 +38,343 @@
     box-sizing: border-box;
   }
 
-  @media (prefers-color-scheme: dark) {
-    background: $color-background-dark;
-    color: $color-foreground-dark;
-
-    .hero-content-container {
-      background-color: $color-background-dark;
-    }
+  > .hero-wrapper,
+  > .in-page-nav-wrapper {
+    width: 100%;
+    max-width: 80rem;
   }
 
-  &__title {
-    margin: 0;
-    padding: 2rem 4rem 1rem 6rem;
-    font-size: 2rem;
-    font-weight: 500;
-    line-height: 1.15;
-
-    @media (min-width: 768px) {
-      padding: 2rem 4rem 1rem 6rem;
-      font-size: 2.75rem;
-    }
-  }
-
-  &__media {
-    display: none;
-
-    @media (min-width: 768px) {
-      display: block;
-    }
-
-    .cmp-image {
-      display: block;
-      margin: 0;
-    }
-
-    .cmp-image__image {
-      display: block;
-      width: 100%;
-      height: 28rem;
-      object-fit: cover;
-      object-position: center 28%;
-      border-top-right-radius: 3rem;
-    }
-  }
-
-  &__body {
-    padding: 0 0 2.5rem;
-
-    @media (min-width: 768px) {
-      padding: 0 0 3rem;
-    }
-  }
-
-  .hero-content-container {
-    display: flex;
-    box-sizing: border-box;
-    background-color: #fff;
-    border-top-right-radius: 2rem;
-    max-width: 90rem;
+  > .hero-wrapper:not(:last-child) {
+    margin-bottom: 3rem;
 
     @media (min-width: 36rem) {
-      margin-right: 8rem;
-      border-top-right-radius: 2rem;
+      margin-bottom: 3.5rem;
     }
 
     @media (min-width: 64rem) {
-      border-top-right-radius: 4rem;
-    }
-  }
-
-  &:not(.no-hero-image) .hero-content-container {
-    position: relative;
-    padding: 1.5rem 1.5rem 1rem;
-
-    @media (min-width: 36rem) {
-      top: -5rem;
-      margin-bottom: -6rem;
-      padding: 2rem 1.5rem 1rem 2rem;
-    }
-
-    @media (min-width: 64rem) {
-      padding: 2rem 4rem 1rem 6rem;
-    }
-  }
-
-  .hero-content-container.has-text {
-    @media (min-width: 64rem) {
-      width: fit-content;
-      max-width: 76rem;
-      box-sizing: border-box;
-    }
-  }
-
-  .hero-text-content {
-    @media (min-width: 36rem) {
-      max-width: 52rem;
-    }
-
-    @media (min-width: 64rem) {
-      margin-right: 7rem;
-    }
-  }
-
-  .intro,
-  .intro > :last-child {
-    margin-bottom: 0;
-  }
-
-  .intro p{
-    margin: 0px;
-    font-weight: 300;
-    font-size: 2rem;
-    line-height: 2.813rem;
-    letter-spacing: 0rem;
-  }
-  
-
-  .intro,
-  .intro ul li,
-  .intro ol li {
-    font-weight: 300;
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-
-    @media (min-width: 36rem) {
-      font-size: 1.75rem;
-      line-height: 2.4375rem;
-    }
-
-    @media (min-width: 64rem) {
-      font-size: 2rem;
-      line-height: 2.8125rem;
-    }
-  }
-
-  &__links {
-    margin-top: 5rem;
-    margin-left: 6rem;
-    padding-left: 1.15rem;
-    border-left: 3px solid #d0121a;
-
-    @media (min-width: 768px) {
-      margin-left: 6rem;
-    }
-  }
-
-  &__links-heading {
-    margin: 0 0 1rem;
-    font-size: 1.35rem;
-    font-weight: 700;
-  }
-
-  &__links ul {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.85rem 2.5rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-    @media (min-width: 768px) {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  &__links a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.65rem;
-    color: inherit;
-    text-decoration: none;
-
-    &::before {
-      content: "\2193";
-      flex: none;
-      font-size: 0.95rem;
-      line-height: 1;
-    }
-
-    &:hover {
-      text-decoration: underline;
+      margin-bottom: 7rem;
     }
   }
 }
+
+.cmp-hero .hero {
+  margin: 0;
+  padding: 0;
+  color: $hero-text;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.cmp-hero .hero h1 {
+  margin: 0 0 1rem;
+  padding: 0;
+  color: $hero-text;
+  font-weight: 300;
+  font-size: 3rem;
+  line-height: 3.875rem;
+  letter-spacing: -0.031rem;
+
+  @media (min-width: 36rem) {
+    margin-bottom: 1.5rem;
+    font-size: 3.75rem;
+    line-height: 4.5rem;
+  }
+
+  @media (min-width: 64rem) {
+    margin-bottom: 2rem;
+    font-size: 4.5rem;
+    line-height: 5.5rem;
+  }
+}
+
+.cmp-hero .hero:not(.no-hero-image) .hero-image-and-content {
+  margin: 0 -1rem;
+
+  @media (min-width: 36rem) {
+    margin: 0 -2rem;
+  }
+
+  @media (min-width: 64rem) {
+    margin: 0 -6rem;
+  }
+}
+
+.cmp-hero .hero .image {
+  display: flex;
+  flex-direction: column-reverse;
+  height: 22.5rem;
+  margin: 0;
+
+  @media (min-width: 36rem) {
+    height: 26.5rem;
+  }
+
+  @media (min-width: 64rem) {
+    height: 29.5rem;
+  }
+}
+
+.cmp-hero .hero .image .cmp-image,
+.cmp-hero .hero .image picture {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.cmp-hero .hero .image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 29%;
+  border-top-right-radius: 2.5rem;
+
+  @media (min-width: 36rem) {
+    border-top-right-radius: 4.5rem;
+  }
+
+  @media (min-width: 64rem) {
+    border-top-right-radius: 6rem;
+  }
+}
+
+.cmp-hero .hero .hero-content-container {
+  display: flex;
+  flex-direction: column-reverse;
+  row-gap: 1rem;
+  min-height: 0;
+  margin-right: 2rem;
+  background-color: $hero-surface;
+  border-top-right-radius: 2rem;
+  max-width: 76rem;
+
+  @media (min-width: 36rem) {
+    row-gap: 1.5rem;
+    min-height: 4.5rem;
+    margin-right: 4rem;
+    border-top-right-radius: 3rem;
+  }
+
+  @media (min-width: 64rem) {
+    flex-direction: row;
+    row-gap: 2rem;
+    min-height: 6rem;
+    margin-right: 6rem;
+    border-top-right-radius: 4rem;
+  }
+}
+
+.cmp-hero .hero .hero-content-container.has-text {
+  @media (min-width: 64rem) {
+    justify-content: space-between;
+  }
+}
+
+.cmp-hero .hero:not(.no-hero-image) .hero-content-container {
+  position: relative;
+  top: -3rem;
+  margin-bottom: -3rem;
+  padding: 1rem 1rem 1rem 1rem;
+
+  @media (min-width: 36rem) {
+    top: -4.5rem;
+    margin-bottom: -4.5rem;
+    padding: 1.5rem 2rem 1rem 2rem;
+  }
+
+  @media (min-width: 64rem) {
+    top: -6rem;
+    margin-bottom: -6rem;
+    padding: 2rem 4rem 1rem 6rem;
+  }
+}
+
+.cmp-hero .hero.hide-image-mobile .image {
+  @media (max-width: 35.999rem) {
+    display: none;
+  }
+}
+
+.cmp-hero .hero.hide-image-mobile .hero-content-container {
+  @media (max-width: 35.999rem) {
+    top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    border-radius: 0;
+  }
+}
+
+.cmp-hero .hero .hero-text-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 41.5rem;
+
+  @media (min-width: 36rem) {
+    max-width: 53rem;
+  }
+
+  @media (min-width: 64rem) {
+    margin-right: 7rem;
+  }
+}
+
+.cmp-hero .intro,
+.cmp-hero .intro > :last-child {
+  margin-bottom: 0;
+}
+
+.cmp-hero .intro,
+.cmp-hero .intro p,
+.cmp-hero .intro ul li,
+.cmp-hero .intro ol li {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: $hero-text;
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 2.125rem;
+  letter-spacing: 0;
+
+  @media (min-width: 36rem) {
+    font-size: 1.75rem;
+    line-height: 2.438rem;
+  }
+
+  @media (min-width: 64rem) {
+    font-size: 2rem;
+    line-height: 2.813rem;
+  }
+}
+
+.cmp-hero .in-page-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  padding-left: 1.5rem;
+
+  @media (min-width: 36rem) {
+    padding-left: 2rem;
+  }
+
+  @media (min-width: 64rem) {
+    padding-left: 2.5rem;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 0.25rem;
+    background: $hero-red;
+  }
+}
+
+.cmp-hero .nav-heading {
+  margin: 0 0 1.5rem;
+  color: $hero-text;
+  font-weight: 400;
+  font-size: 1.625rem;
+  line-height: 2.25rem;
+  letter-spacing: -0.016rem;
+
+  @media (min-width: 64rem) {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    line-height: 2.813rem;
+  }
+}
+
+.cmp-hero .nav-links-wrapper {
+  width: 100%;
+}
+
+.cmp-hero .nav-list {
+  column-count: 1;
+  column-gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-wrap: break-word;
+
+  @media (min-width: 36rem) {
+    &:has(li:nth-child(6)) {
+      column-count: 2;
+    }
+  }
+}
+
+.cmp-hero .nav-list li {
+  break-inside: avoid;
+  display: list-item;
+  margin: 0 0.25rem 0 -0.25rem;
+  padding: 0.5rem 0 0.5rem 0.25rem;
+
+  &:not(:first-child) {
+    margin-top: 0.25rem;
+  }
+}
+
+.cmp-hero .nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  margin: 0;
+  color: $hero-text;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  letter-spacing: 0;
+  text-decoration: none;
+  transition: color 0.2s, text-decoration 0.2s;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    flex: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-color: $hero-text;
+    mask: $hero-arrow center / contain no-repeat;
+  }
+
+  &:hover {
+    color: $hero-red;
+    text-decoration: underline;
+    text-decoration-thickness: 0.063rem;
+    text-underline-offset: 0.125rem;
+
+    &::before {
+      background-color: $hero-red;
+    }
+  }
+
+  &:visited {
+    color: $hero-visited;
+  }
+
+  &:visited:hover {
+    color: $hero-red;
+  }
+
+  &:focus {
+    color: $hero-text;
+    text-decoration: none;
+    border-radius: 2px;
+  }
+
+  &:active {
+    color: $hero-text;
+    text-decoration: none;
+    outline: none;
+  }
+}
+

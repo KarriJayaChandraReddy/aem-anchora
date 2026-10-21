@@ -1,0 +1,36 @@
+// Qantas Sans, served from the site client library resources folder.
+// css-loader leaves url() alone, so these are the public proxy paths.
+
+$font-path: "/etc.clientlibs/anchora/clientlibs/clientlib-site/resources/fonts";
+
+@font-face {
+    font-family: "Qantas Sans";
+    src: url("#{$font-path}/QantasSans-Light.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Qantas Sans";
+    src: url("#{$font-path}/QantasSans-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Qantas Sans";
+    src: url("#{$font-path}/QantasSans-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Qantas Sans";
+    src: url("#{$font-path}/QantasSans-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
